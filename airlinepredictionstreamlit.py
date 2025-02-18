@@ -143,12 +143,12 @@ elif page == "Exploratory Data Analysis":
 
 # Model Training and Evaluation Page
 elif page == "Training Models & Their Evaluations":
-    st.title("Classification Model Selection & Training with Performance Evaluations")
-    st.subheader("Choose a classification model type to train on the dataset and to see its accuracy scores and to see the confusion matrix for the model")
+    st.title("Classification Model Types & Trainings with Performance Evaluations")
+    st.subheader("Choose a classification model type to train on the dataset, to see its accuracy scores and to see the confusion matrix for the model")
 
     # Sidebar for model selection
     st.sidebar.subheader("Choose a Classification Machine Learning Model")
-    model_option = st.sidebar.selectbox("Select a model option", ["K-Nearest Neighbors", "Logistic Regression", "Random Forest"])
+    model_option = st.sidebar.selectbox("Select a Model Type", ["K-Nearest Neighbors", "Logistic Regression", "Random Forest"])
 
     # Prepare the data
     X = df.drop(columns = 'satisfaction')
@@ -164,7 +164,7 @@ elif page == "Training Models & Their Evaluations":
 
     # Initialize the selected model
     if model_option == "K-Nearest Neighbors":
-        k = st.sidebar.slider("Select the number of neighbors (k)", min_value=1, max_value=21, value=3)
+        k = st.sidebar.slider("Select The Number of Neighbors (K)", min_value=1, max_value=21, value=3)
         model = KNeighborsClassifier(n_neighbors=k)
     elif model_option == "Logistic Regression":
         model = LogisticRegression()
@@ -185,17 +185,21 @@ elif page == "Training Models & Their Evaluations":
     if model_option == "K-Nearest Neighbors":
         ConfusionMatrixDisplay.from_estimator(model, X_test_scaled, y_test, ax=ax, cmap='Blues')
         st.pyplot(fig)
+        st.write(f"This confusion matrix shows that from using a {model_option} model, that it interpreted the true label of 'satisfied' incorrectly as 'neutral or dissatisfied' at 1606 times. It interpreted the true label of 'neutral or dissatisfied' as 'satisfied' at 694 times. It predicts false negatives the most (True 'satisfied' interpreted as 'neutral or dissatisfied').")
     elif model_option == "Logistic Regression":
         ConfusionMatrixDisplay.from_estimator(model, X_test_scaled, y_test, ax=ax, cmap='Greens')
         st.pyplot(fig)
+        st.write(f"This confusion matrix shows that from using a {model_option} model, that it interpreted the true label of 'satisfied' incorrectly as 'neutral or dissatisfied' at 2211 times. It interpreted the true label of 'neutral or dissatisfied' as 'satisfied' at 1671 times. It predicts false negatives the most (True 'satisfied' interpreted as 'neutral or dissatisfied').")
     elif model_option == "Random Forest":
         ConfusionMatrixDisplay.from_estimator(model, X_test_scaled, y_test, ax=ax, cmap='Oranges')
         st.pyplot(fig)
+        st.write(f"This confusion matrix shows that from using a {model_option} model, that it interpreted the true label of 'satisfied' incorrectly as 'neutral or dissatisfied' at 831 times. It interpreted the true label of 'neutral or dissatisfied' as 'satisfied' at 409 times.It predicts false negatives the most (True satisfied interpreted as neutral or dissatisfied).")
 
     # Make Predictions Page
 elif page == "Make Your Own Predictions!":
     st.title("Make Your Own Airline Passenger Satisfaction Prediction")
     st.subheader("Use 22 features to input in a Random Forest classification model")
+    st.write("Random Forest model type was selection for the prediction model on this page due to the fact it had the highest accuracy scores on the training and testing data.")
     st.subheader("Adjust the feature values below to make predictions on whether a airpline passenger is satisfied or not")
 
     # User inputs for prediction
