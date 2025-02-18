@@ -147,8 +147,8 @@ elif page == "Training Models & Their Evaluations":
     st.subheader("Choose a classification model type to train on the dataset and to see its accuracy scores and to see the confusion matrix for the model")
 
     # Sidebar for model selection
-    st.sidebar.subheader("Choose a Machine Learning Model")
-    model_option = st.sidebar.selectbox("Select a model", ["K-Nearest Neighbors", "Logistic Regression", "Random Forest"])
+    st.sidebar.subheader("Choose a Classification Machine Learning Model")
+    model_option = st.sidebar.selectbox("Select a model option", ["K-Nearest Neighbors", "Logistic Regression", "Random Forest"])
 
     # Prepare the data
     X = df.drop(columns = 'satisfaction')
