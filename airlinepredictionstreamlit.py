@@ -147,7 +147,8 @@ elif page == "Exploratory Data Analysis":
 elif page == "Training Models & Their Evaluations":
     st.title("Classification Model Types & Trainings with Performance Evaluations")
     st.subheader("Choose a classification model type to train on the dataset, to see its accuracy scores & corresponding confusion matrix")
-    st.write("For any model type, it needs to have a better accuracy score than 56.67%!")
+    st.write("The baseline model had an accuracy score of 56.67%, so these model types need to have a higher accuracy score than the baseline to be worth using!")
+
 
     # Sidebar for model selections
     st.sidebar.subheader("Choose a Classification Machine Learning Model")
