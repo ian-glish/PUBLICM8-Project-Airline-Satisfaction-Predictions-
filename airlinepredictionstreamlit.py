@@ -89,17 +89,18 @@ elif page == "Data Overview":
 
 # Exploratory Data Analysis (EDA)
 elif page == "Exploratory Data Analysis":
-    st.title("Exploratory Data Analysis (EDA) Using Plotly")
+    st.title("Exploratory Data Analysis\nUsing Plotly Visualizations")
 
-    st.subheader("Select the type of visualization you'd like to explore:")
-    eda_type = st.multiselect("Visualization Options", ['Histograms', 'Box Plots', 'Scatterplots', 'Count Plots'])
+    container = st.container(border=True)
+    container.subheader("Select the type of visualization you'd like to explore:")
+    eda_type = container.multiselect("Visualization Options", ['Histograms', 'Box Plots', 'Scatterplots', 'Count Plots'])
 
     obj_cols = odf.select_dtypes(include='object').columns.tolist()
     num_cols = odf.select_dtypes(include='number').columns.tolist()
 
     if 'Histograms' in eda_type:
         st.subheader("Histograms - Visualizing Numerical Distributions")
-        h_selected_col = st.selectbox("Select a numerical column for the histogram:", num_cols)
+        h_selected_col = st.selectbox("Select a numeric variable for the histogram:", num_cols)
         if h_selected_col:
             chart_title = f"Distribution of {h_selected_col.title().replace('_', ' ')}"
             if st.checkbox("Show by Overall Satisfaction Rating"):
@@ -110,7 +111,7 @@ elif page == "Exploratory Data Analysis":
 
     if 'Box Plots' in eda_type:
         st.subheader("Box Plots - Visualizing Numerical Distributions")
-        b_selected_col = st.selectbox("Select a numerical column for the box plot:", num_cols)
+        b_selected_col = st.selectbox("Select a numeric variable for the box plot:", num_cols)
         if b_selected_col:
             chart_title = f"Distribution of {b_selected_col.title().replace('_', ' ')}"
             if st.checkbox("Show by Overall Satisfaction Rating"):
@@ -131,7 +132,7 @@ elif page == "Exploratory Data Analysis":
 
     if 'Count Plots' in eda_type:
         st.subheader("Count Plots - Visualizing Categorical Distributions")
-        selected_col = st.selectbox("Select a categorical variable:", obj_cols)
+        selected_col = st.selectbox("Select a categorical feature:", obj_cols)
         if selected_col:
             chart_title = f'Distribution of {selected_col.title()}'
             if st.checkbox("Show by Overall Satisfaction Rating"):
