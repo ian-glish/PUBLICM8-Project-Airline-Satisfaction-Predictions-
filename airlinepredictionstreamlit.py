@@ -27,7 +27,7 @@ odf = odf.drop(columns = ['Unnamed: 0', 'id'])
 
 # Home Page
 if page == "Home":
-    st.title("Predicting Airline Passenger Satisfaction Through Classification Machine Learning")
+    st.title("Predicting Airline Passenger Satisfaction Using Classification Machine Learning")
     st.subheader("By Ian Glish")
     st.write("""
         This Streamlit app provides an interactive platform to explore the airline satisfaction dataset, sourced from Kaggle. This app provides data overview information, exploratory data analysis, training 3 varities of classification machine learning models with their accuracy evaluations and a Random Forest classification machine learning model that helps predict the satisfaction of a airline passenger based on 22 sources of user input via sliding scales. 
@@ -89,7 +89,7 @@ elif page == "Data Overview":
 
 # Exploratory Data Analysis (EDA)
 elif page == "Exploratory Data Analysis":
-    st.title("Exploratory Data Analysis (EDA)")
+    st.title("Exploratory Data Analysis (EDA) Using Plotly")
 
     st.subheader("Select the type of visualization you'd like to explore:")
     eda_type = st.multiselect("Visualization Options", ['Histograms', 'Box Plots', 'Scatterplots', 'Count Plots'])
@@ -144,9 +144,10 @@ elif page == "Exploratory Data Analysis":
 # Model Training and Evaluation Page
 elif page == "Training Models & Their Evaluations":
     st.title("Classification Model Types & Trainings with Performance Evaluations")
-    st.subheader("Choose a classification model type to train on the dataset, to see its accuracy scores and to see the confusion matrix for the model")
+    st.subheader("Choose a classification model type to train on the dataset, to see its accuracy scores & corresponding confusion matrix")
+    st.write("For any model type, it needs to have a better accuracy score than 56.67%!")
 
-    # Sidebar for model selection
+    # Sidebar for model selections
     st.sidebar.subheader("Choose a Classification Machine Learning Model")
     model_option = st.sidebar.selectbox("Select a Model Type", ["K-Nearest Neighbors", "Logistic Regression", "Random Forest"])
 
@@ -175,9 +176,10 @@ elif page == "Training Models & Their Evaluations":
     model.fit(X_train_scaled, y_train)
 
     # Display training and test accuracy
-    st.write(f" **Model Selected: {model_option}**")
-    st.write(f" **Training Accuracy: {model.score(X_train_scaled, y_train):.2f}**")
-    st.write(f" **Test Accuracy: {model.score(X_test_scaled, y_test):.2f}**")
+    container = st.container(border=True)
+    container.write(f" **Model Selected: {model_option}**")
+    container.write(f" **Training Accuracy: {model.score(X_train_scaled, y_train)*100:.2f}%**")
+    container.write(f" **Test Accuracy: {model.score(X_test_scaled, y_test)*100:.2f}%**")
 
     # Display confusion matrix
     st.subheader(f"Confusion Matrix for {model_option} Model")
