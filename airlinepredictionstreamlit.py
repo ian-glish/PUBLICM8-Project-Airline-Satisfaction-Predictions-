@@ -91,6 +91,7 @@ elif page == "Data Overview":
 elif page == "Exploratory Data Analysis":
     st.title("Exploratory Data Analysis\nUsing Plotly Visualizations")
 
+
     container = st.container(border=True)
     container.subheader("Select the type of visualization you'd like to explore:")
     eda_type = container.multiselect("Visualization Options", ['Histograms', 'Box Plots', 'Scatterplots', 'Count Plots'])
@@ -188,22 +189,28 @@ elif page == "Training Models & Their Evaluations":
     if model_option == "K-Nearest Neighbors":
         ConfusionMatrixDisplay.from_estimator(model, X_test_scaled, y_test, ax=ax, cmap='Blues')
         st.pyplot(fig)
-        st.write(f"This confusion matrix shows that from using a {model_option} model, that it interpreted the true label of 'satisfied' incorrectly as 'neutral or dissatisfied' at 1606 times. It interpreted the true label of 'neutral or dissatisfied' as 'satisfied' at 694 times. It predicts false negatives the most (True 'satisfied' interpreted as 'neutral or dissatisfied').")
+        st.write(f"Using the {model_option} model, the confusion matrix shows a higher rate of misclassifying 'satisfied' customers as 'neutral or dissatisfied' (false negatives) than misclassifying 'neutral or dissatisfied' customers as 'satisfied' (false positives).")
+        st.write(f"This suggests the {model_option} model has difficulty identifying satisfied customers.")
+        st.write(f"**Out of all the model types, {model_option} had the second highest overall accuracy scores, regaurdless of what the selected K value was.**")
     elif model_option == "Logistic Regression":
         ConfusionMatrixDisplay.from_estimator(model, X_test_scaled, y_test, ax=ax, cmap='Greens')
         st.pyplot(fig)
-        st.write(f"This confusion matrix shows that from using a {model_option} model, that it interpreted the true label of 'satisfied' incorrectly as 'neutral or dissatisfied' at 2211 times. It interpreted the true label of 'neutral or dissatisfied' as 'satisfied' at 1671 times. It predicts false negatives the most (True 'satisfied' interpreted as 'neutral or dissatisfied').")
+        st.write(f"Using the {model_option} model, the confusion matrix shows a higher rate of misclassifying 'satisfied' customers as 'neutral or dissatisfied' (false negatives) than misclassifying 'neutral or dissatisfied' customers as 'satisfied' (false positives).")
+        st.write(f"This suggests the {model_option} model has difficulty identifying satisfied customers.")
+        st.write(f"**Out of all the model types, {model_option} had the lowest overall accuracy scores.**")
     elif model_option == "Random Forest":
         ConfusionMatrixDisplay.from_estimator(model, X_test_scaled, y_test, ax=ax, cmap='Oranges')
         st.pyplot(fig)
-        st.write(f"This confusion matrix shows that from using a {model_option} model, that it interpreted the true label of 'satisfied' incorrectly as 'neutral or dissatisfied' at 831 times. It interpreted the true label of 'neutral or dissatisfied' as 'satisfied' at 409 times.It predicts false negatives the most (True satisfied interpreted as neutral or dissatisfied).")
-
+        st.write(f"Using the {model_option} model, the confusion matrix shows a higher rate of misclassifying 'satisfied' customers as 'neutral or dissatisfied' (false negatives) than misclassifying 'neutral or dissatisfied' customers as 'satisfied' (false positives).")
+        st.write(f"This suggests the {model_option} model has difficulty identifying satisfied customers.")
+        st.write(f"**Out of all the model types, {model_option} had the highest overall accuracy scores, making it the best model to use for the 'Make Your Own Predictions!' page.**")
     # Make Predictions Page
 elif page == "Make Your Own Predictions!":
     st.title("Make Your Own Airline Passenger Satisfaction Prediction")
-    st.subheader("Use 22 features to input in a Random Forest classification model")
-    st.write("Random Forest model type was selection for the prediction model on this page due to the fact it had the highest accuracy scores on the training and testing data.")
-    st.subheader("Adjust the feature values below to make predictions on whether a airpline passenger is satisfied or not")
+    container = st.container(border=True)
+    container.subheader("Use 22 features to input in a Random Forest classification model")
+    container.subheader("**Adjust the feature scale values below to make your own predictions on whether an airpline passenger will be satisfied or not**")
+    
 
     # User inputs for prediction
     gender = st.slider("Gender ---> Female: 0, Male: 1", min_value=0, max_value=1, value=1)
